@@ -1,9 +1,11 @@
-CREATE TABLE `Recommendations`
-(
-	`Tips on decreasing the footprint` TEXT NOT NULL,
-	`Organizations to join` TEXT NOT NULL,
-	`Sign up for updates` TEXT NOT NULL
-);
+SET FOREIGN_KEY_CHECKS
+=0;
+DROP TABLE if exists `Questions`;
+DROP TABLE if exists `Surveys`;
+DROP TABLE if exists `Answers`;
+DROP TABLE if exists `Options`;
+SET FOREIGN_KEY_CHECKS
+=1;
 
 CREATE TABLE `Questions`
 (
@@ -43,7 +45,8 @@ CREATE TABLE `Answers`
 CREATE TABLE `Options`
 (
 	`id` INT NOT NULL AUTO_INCREMENT,
-	`OptionText` TEXT NOT NULL,
+	`OptionText` varchar
+(255) NOT NULL,
 	PRIMARY KEY
 (`id`)
 );
@@ -65,6 +68,6 @@ ADD CONSTRAINT `Answers_fk2` FOREIGN KEY
 
 ALTER TABLE `Options`
 ADD CONSTRAINT `Options_fk0` FOREIGN KEY
-(`OptionText`) REFERENCES `Questions`
+(`id`) REFERENCES `Questions`
 (`id`);
 

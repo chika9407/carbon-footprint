@@ -246,10 +246,22 @@ VALUES
 INSERT INTO options
     (id, OptionText, QuestionId)
 VALUES
-    (35, "Up to 5500 km away", 8);
+    (38, "None", 9);
 INSERT INTO options
     (id, OptionText, QuestionId)
 VALUES
-    (35, "Up to 5500 km away", 8);
+    (39, "25%", 9);
+INSERT INTO options
+    (id, OptionText, QuestionId)
+VALUES
+    (40, "50%", 9);
+INSERT INTO options
+    (id, OptionText, QuestionId)
+VALUES
+    (41, "75%", 9);
+INSERT INTO options
+    (id, OptionText, QuestionId)
+VALUES
+    (42, "100%", 9);
 
 

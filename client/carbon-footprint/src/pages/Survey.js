@@ -22,9 +22,9 @@ export default class Survey extends Component {
     this.fetchOptionsByQuestionID();
   }
 
-  fetchOptionsByQuestionID = async () => {
+  fetchOptionsByQuestionID = async (id) => {
     try {
-      fetch("/questions")
+      fetch("/options" + id)
         .then((res) => {
           return res.json();
         })
@@ -37,9 +37,9 @@ export default class Survey extends Component {
     }
   };
 
-  fetchQuestionsById = async () => {
+  fetchQuestionsById = async (id) => {
     try {
-      fetch("/questions")
+      fetch("/questions" + id)
         .then((res) => {
           return res.json();
         })
@@ -52,9 +52,9 @@ export default class Survey extends Component {
     }
   };
 
-  addAnswersByOptionID = async () => {
+  addAnswersByOptionID = async (id) => {
     try {
-      fetch("/questions")
+      fetch("/answers" + id)
         .then((res) => {
           return res.json();
         })
@@ -69,10 +69,27 @@ export default class Survey extends Component {
 
   render() {
     return (
-      <div>
+      <div className="container">
         <h3>Click Start to do the entire survey</h3>
-        <button className="btn btn-primary">Start</button>
+
+        <select>
+          <option></option>
+        </select>
+        <button
+          onClick={() => this.addAnswersByOptionID()}
+          className="btn btn-primary"
+        >
+          Start
+        </button>
       </div>
     );
   }
 }
+/*<form>
+          <input name="firstname" className="form-control">
+            Your firstname
+          </input>
+          <input name="firstname" className="form-control">
+            Your lastname
+          </input>
+        </form>*/

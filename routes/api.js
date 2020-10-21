@@ -14,6 +14,67 @@ async function getQuestions(req, res) {
   }
 }
 
+function queryMaker(query, req, res) {
+  return async function (req, res) {
+    try {
+      var results = await db(query);
+      res.send(results.data);
+    } catch (err) {
+      res.status(500).send(err);
+    }
+  };
+}
+
+/*router.get("/questions/:id/", async (req, res) => {
+  console.log(req.params.id);
+  try {
+    var results = await db(
+      `SELECT * FROM questions WHERE id = ${req.params.id};`
+    );
+    res.send(results.data);
+  } catch (err) {
+    res.status(500).send(err);
+  }
+});*/
+
+router.get("/questions/:id/:category/", async (req, res) => {
+  try {
+    var results = await db(
+      `SELECT * FROM questions WHERE Category = "${req.params.category}" ;`
+    );
+    res.send(results.data);
+  } catch (err) {
+    res.status(500).send(err);
+  }
+});
+
+async function getOptions(req, res) {
+  try {
+    const results = await db("SELECT * FROM options;");
+    res.send(results.data);
+  } catch (err) {
+    res.status(500).send(err);
+  }
+}
+router.get("/", (req, res) => {
+  res.send("Welcome to the API");
+});
+router.get("/questions/", getQuestions);
+router.get("/questions/:id/", (req, res) =>
+  queryMaker(`SELECT * FROM questions WHERE id = ${req.params.id};`)(req, res)
+);
+router.get("/options/", getOptions);
+router.get("/options/:id", (req, res) =>
+  queryMaker(`SELECT * FROM options WHERE id = ${req.params.id};`)(req, res)
+);
+
+//even if it requires an id (so long it exists even if not under this Question) it retrieves all the options for this QuestionID - so it works!
+router.get("/options/:id/:QuestionId", (req, res) =>
+  queryMaker(
+    `SELECT * FROM options WHERE QuestionId = ${req.params.QuestionId};`
+  )(req, res)
+);
+
 async function getSurveys(req, res) {
   try {
     const results = await db("SELECT * FROM surveys;");
@@ -32,31 +93,8 @@ async function getAnswers(req, res) {
   }
 }
 
-async function getOptions(req, res) {
-  try {
-    const results = await db("SELECT * FROM options;");
-    res.send(results.data);
-  } catch (err) {
-    res.status(500).send(err);
-  }
-}
-
-function queryMaker(query, req, res) {
-  return async function (req, res) {
-    try {
-      await db(query);
-    } catch (err) {
-      res.status(500).send(err);
-    }
-  };
-}
-router.get("/", (req, res) => {
-  res.send("Welcome to the API");
-});
-router.get("/questions/", getQuestions);
 router.get("/surveys/", getSurveys);
 router.get("/answers/", getAnswers);
-router.get("/options/", getOptions);
 
 router.post("/surveys/", (req, res) =>
   queryMaker(

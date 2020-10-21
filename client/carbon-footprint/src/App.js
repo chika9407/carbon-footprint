@@ -9,7 +9,6 @@ import {
   useParams,
 } from "react-router-dom";
 import Survey from "./pages/Survey.js";
-import Option from "./pages/Option.js";
 
 export default function App() {
   return (
@@ -38,33 +37,16 @@ export default function App() {
                   Survey{" "}
                 </NavLink>
               </li>
-              <li>
-                <NavLink to="/questions" exact>
-                  Questions{" "}
-                </NavLink>
-              </li>
-              <NavLink to="/options" exact>
-                Options{" "}
-              </NavLink>
             </ul>
           </div>
         </nav>
         <Switch>
-          <Route path="/questions">
-            <Questions />
-          </Route>
           <Route path="/survey">
             <Survey />
           </Route>
-          <Route path="/questions/:id">
+          <Route path="/survey/:category">
             {" "}
-            <Questions />
-          </Route>
-          <Route path="/options">
-            <Option />
-          </Route>
-          <Route path="/options/:id">
-            <Option />
+            <Survey />
           </Route>
           <Route path="/">
             <Home />
@@ -85,15 +67,15 @@ function Transport() {
 function Home() {
   return <h2>Home</h2>;
 }
-function Options() {
-  return <h2>Options</h2>;
+function Stuff() {
+  return <h2>Stuff</h2>;
 }
-function Questions() {
-  let match = useRouteMatch();
+function Survey() {
+  let match = useRouteMatch();}
 
   return (
     <div>
-      <h2>Questions</h2>
+      <h2>Categories</h2>
 
       <ul>
         <li>
@@ -106,12 +88,6 @@ function Questions() {
           <Link to={`${match.url}/home`}>Home</Link>
         </li>
       </ul>
-
-      {/* The Topics page has its own <Switch> with more routes
-          that build on the /topics URL path. You can think of the
-          2nd <Route> here as an "index" page for all topics, or
-          the page that is shown when no topic is selected */}
-
       <Switch>
         <Route path="/food">
           <Food />
@@ -122,16 +98,10 @@ function Questions() {
         <Route path="/home">
           <Home />
         </Route>
+        <Route path="/stuff">
+          <Stuff />
+        </Route>
       </Switch>
     </div>
   );
 }
-
-/*function Question() {
-  let { questionId } = useParams();
-  return <h3>Requested question ID: {questionId}</h3>;
-          <Route path={match.path}>
-          <h3>Please select a question category.</h3>
-        </Route>
-      </Switch>
-}*/

@@ -14,11 +14,28 @@ async function getQuestions(req, res) {
   }
 }
 
+async function getSurveys(req, res) {
+  try {
+    const results = await db("SELECT * FROM surveys;");
+    res.send(results.data);
+  } catch (err) {
+    res.status(500).send(err);
+  }
+}
+
+async function getAnswers(req, res) {
+  try {
+    const results = await db("SELECT * FROM answers;");
+    res.send(results.data);
+  } catch (err) {
+    res.status(500).send(err);
+  }
+}
+
 function queryMaker(query, req, res) {
   return async function (req, res) {
     try {
       await db(query);
-      getQuestions(req, res);
     } catch (err) {
       res.status(500).send(err);
     }
@@ -27,20 +44,32 @@ function queryMaker(query, req, res) {
 router.get("/", (req, res) => {
   res.send("Welcome to the API");
 });
-router.get("/todos/", getItems);
+router.get("/questions/", getQuestions);
+router.get("/surveys/", getSurveys);
+router.get("/answers/", getAnswers);
 
-router.post("/todos/", (req, res) =>
+router.post("/surveys/", (req, res) =>
   queryMaker(
-    `INSERT INTO items(text, complete) VALUES ("${req.body.text}", 0);`
+    `INSERT INTO surveys (FirstName, LastName) VALUES ("${req.body.firstname}","${req.body.lastname}", );`
   )(req, res)
 );
-router.put("/todos/:todo_id", (req, res) =>
-  queryMaker(
-    `UPDATE items SET complete = "1" WHERE id = ${req.params.todo_id};`
-  )(req, res)
+/*router.put("/options/:id", (req, res) =>
+  queryMaker(`UPDATE options SET id = "1" WHERE id = ${req.params.id};`)(
+    req,
+    res
+  )
+);*/
+router.delete("/options/:id", (req, res) =>
+  queryMaker(`DELETE FROM items WHERE id = ${req.params.id};`)(req, res)
 );
-router.delete("/todos/:todo_id", (req, res) =>
-  queryMaker(`DELETE FROM items WHERE id = ${req.params.todo_id};`)(req, res)
+router.delete("/surveys/:id", (req, res) =>
+  queryMaker(`DELETE FROM items WHERE id = ${req.params.id};`)(req, res)
+);
+router.delete("/answers/:id", (req, res) =>
+  queryMaker(`DELETE FROM items WHERE id = ${req.params.id};`)(req, res)
+);
+router.delete("/questions/:id", (req, res) =>
+  queryMaker(`DELETE FROM items WHERE id = ${req.params.id};`)(req, res)
 );
 
 module.exports = router;

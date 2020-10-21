@@ -32,6 +32,15 @@ async function getAnswers(req, res) {
   }
 }
 
+async function getOptions(req, res) {
+  try {
+    const results = await db("SELECT * FROM options;");
+    res.send(results.data);
+  } catch (err) {
+    res.status(500).send(err);
+  }
+}
+
 function queryMaker(query, req, res) {
   return async function (req, res) {
     try {
@@ -47,6 +56,7 @@ router.get("/", (req, res) => {
 router.get("/questions/", getQuestions);
 router.get("/surveys/", getSurveys);
 router.get("/answers/", getAnswers);
+router.get("/options/", getOptions);
 
 router.post("/surveys/", (req, res) =>
   queryMaker(

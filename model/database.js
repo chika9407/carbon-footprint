@@ -2,8 +2,11 @@ require("dotenv").config();
 
 const mysql = require("mysql");
 
+var file = process.argv[2];
+console.log("file is: ", file);
+
 const fs = require("fs");
-const migrationSQL = fs.readFileSync(__dirname + "/migration.sql").toString();
+const migrationSQL = fs.readFileSync(__dirname + "/" + file).toString();
 
 const DB_HOST = process.env.DB_HOST;
 const DB_USER = process.env.DB_USER;

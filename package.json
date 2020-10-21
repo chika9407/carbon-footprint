@@ -5,7 +5,7 @@
   "scripts": {
     "start": "nodemon ./bin/www",
     "migrate": "node model/database migration.sql",
-    "seed": "node model/seed.js seed.sql"
+    "seed": "node model/database questions.sql && node model/database options.sql"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",

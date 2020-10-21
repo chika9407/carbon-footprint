@@ -1,12 +1,13 @@
+SET FOREIGN_KEY_CHECKS
+=0;
+TRUNCATE TABLE options;
+SET FOREIGN_KEY_CHECKS
+=1;
 
 INSERT INTO options
     (id, OptionText, QuestionId)
 VALUES
-    (1, "Meat in every meal", (SELECT id
-        FROM questions
-        WHERE id
-= 1
-    ));
+    (1, "Meat in every meal", 1);
 INSERT INTO options
     (id, OptionText, QuestionId)
 VALUES

@@ -36,7 +36,6 @@ CREATE TABLE `Answers`
 (
 	`id` INT NOT NULL AUTO_INCREMENT,
 	`SurveyId` INT NOT NULL,
-	`QuestionId` INT NOT NULL,
 	`OptionID` INT NOT NULL,
 	PRIMARY KEY
 (`id`)
@@ -47,6 +46,7 @@ CREATE TABLE `Options`
 	`id` INT NOT NULL AUTO_INCREMENT,
 	`OptionText` varchar
 (255) NOT NULL,
+	`QuestionID` INT NOT NULL,
 	PRIMARY KEY
 (`id`)
 );
@@ -58,16 +58,13 @@ ADD CONSTRAINT `Answers_fk0` FOREIGN KEY
 
 ALTER TABLE `Answers`
 ADD CONSTRAINT `Answers_fk1` FOREIGN KEY
-(`QuestionId`) REFERENCES `Questions`
-(`id`);
-
-ALTER TABLE `Answers`
-ADD CONSTRAINT `Answers_fk2` FOREIGN KEY
 (`OptionID`) REFERENCES `Options`
 (`id`);
 
 ALTER TABLE `Options`
 ADD CONSTRAINT `Options_fk0` FOREIGN KEY
-(`id`) REFERENCES `Questions`
+(`QuestionID`) REFERENCES `Questions`
 (`id`);
+
+
 

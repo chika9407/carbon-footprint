@@ -1,6 +1,6 @@
-import React from "react";
+import React, { Component } from "react";
 
-export default class App extends React.Component {
+export default class Food extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -23,24 +23,18 @@ export default class App extends React.Component {
   }
 
   componentDidMount() {
-    this.fetchQuestionsByCategory(1, "food");
-    this.fetchOptionsByQuestionID(1, 1);
+    this.fetchQuestionsByCategory();
+    this.fetchOptionsByQuestionID();
   }
 
   fetchQuestionsByCategory = async (id, category) => {
     try {
-      await fetch("/questions/" + id + "/" + category)
+      await fetch("/questions" + id + category)
         .then((res) => {
-          if (res.ok) {
-            return res.json();
-          } else {
-            throw new Error("question not found");
-          }
+          return res.json();
         })
         .then((json) => {
           this.setState({ questions: json });
-          //console.log(json);
-          console.log(this.state.questions);
         });
     } catch (err) {
       console.log(err);
@@ -49,14 +43,12 @@ export default class App extends React.Component {
 
   fetchOptionsByQuestionID = async (id, QuestionId) => {
     try {
-      await fetch("/options/" + id + "/" + QuestionId)
+      await fetch("/options" + id + QuestionId)
         .then((res) => {
           return res.json();
         })
         .then((json) => {
           this.setState({ options: json });
-          //console.log(json);
-          console.log(this.state.options);
         });
     } catch (err) {
       console.log(err);
@@ -65,14 +57,12 @@ export default class App extends React.Component {
 
   addAnswersByOptionID = async (id) => {
     try {
-      await fetch("/answers/" + id)
+      await fetch("/answers" + id)
         .then((res) => {
           return res.json();
         })
         .then((json) => {
           this.setState({ answers: json });
-          console.log(json);
-          console.log(this.state.answers);
         });
     } catch (err) {
       console.log(err);
@@ -80,20 +70,12 @@ export default class App extends React.Component {
   };
 
   render() {
-    const { questions, options } = this.state;
     return (
       <div className="container">
-        <h3>Click Next to continue to the next question</h3>
-        <ol>
-          {questions.map((e) => (
-            <li key={e.id} className="text-center">
-              {e.Title}
-            </li>
-          ))}
-        </ol>
+        <h3>Click Start to do the entire survey</h3>
+        <ol></ol>
         <div className="form-check">
           <input
-            onChange={() => this.addAnswersByOptionID()}
             className="form-check-input"
             type="radio"
             name="exampleRadios"
@@ -101,11 +83,7 @@ export default class App extends React.Component {
             value="option1"
             checked
           />
-          {options.map((e) => (
-            <label key={e.id} className="form-check-label" for="exampleRadios1">
-              {e.OptionText}
-            </label>
-          ))}
+          <label className="form-check-label" for="exampleRadios1"></label>
         </div>
         <div className="form-check">
           <input
@@ -121,7 +99,7 @@ export default class App extends React.Component {
           onClick={() => this.addAnswersByOptionID()}
           className="btn btn-primary"
         >
-          Next
+          Start
         </button>
       </div>
     );

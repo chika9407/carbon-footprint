@@ -101,12 +101,7 @@ router.post("/surveys/", (req, res) =>
     `INSERT INTO surveys (FirstName, LastName) VALUES ("${req.body.firstname}","${req.body.lastname}", );`
   )(req, res)
 );
-/*router.put("/options/:id", (req, res) =>
-  queryMaker(`UPDATE options SET id = "1" WHERE id = ${req.params.id};`)(
-    req,
-    res
-  )
-);*/
+
 router.delete("/options/:id", (req, res) =>
   queryMaker(`DELETE FROM items WHERE id = ${req.params.id};`)(req, res)
 );

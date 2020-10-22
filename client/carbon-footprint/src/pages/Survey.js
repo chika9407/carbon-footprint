@@ -1,95 +1,53 @@
 import React, { Component } from "react";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  useRouteMatch,
+  //useParams,
+} from "react-router-dom";
+import Food from "./Food.js";
+import Transport from "./Transport.js";
+import Home from "./Home.js";
+import Stuff from "./Stuff.js";
 
-export default class Survey extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      firstname: "",
-      lastname: "",
-      dateOfCompletion: null,
-      answers: [],
-    };
-  }
-  updateInput(e) {
-    e.preventDefault();
-    const { name } = e.target.name;
-    const { value } = e.target.value;
-    this.setState({ [name]: value });
-  }
+export default function Survey() {
+  let match = useRouteMatch();
+  return (
+    <Router>
+      <div>
+        <h2>Categories</h2>
 
-  componentDidMount() {
-    this.fetchQuestionsById();
-    this.fetchOptionsByQuestionID();
-  }
-
-  fetchOptionsByQuestionID = async (id) => {
-    try {
-      fetch("/options" + id)
-        .then((res) => {
-          return res.json();
-        })
-        .then((json) => {
-          // upon success, update tasks
-          this.setState({ answers: json });
-        });
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  fetchQuestionsById = async (id) => {
-    try {
-      fetch("/questions" + id)
-        .then((res) => {
-          return res.json();
-        })
-        .then((json) => {
-          // upon success, update tasks
-          this.setState({ answers: json });
-        });
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  addAnswersByOptionID = async (id) => {
-    try {
-      fetch("/answers" + id)
-        .then((res) => {
-          return res.json();
-        })
-        .then((json) => {
-          // upon success, update tasks
-          this.setState({ answers: json });
-        });
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  render() {
-    return (
-      <div className="container">
-        <h3>Click Start to do the entire survey</h3>
-
-        <select>
-          <option></option>
-        </select>
-        <button
-          onClick={() => this.addAnswersByOptionID()}
-          className="btn btn-primary"
-        >
-          Start
-        </button>
+        <ul>
+          <li>
+            <Link to={`${match.url}/food`}>Food </Link>
+          </li>
+          <li>
+            <Link to={`${match.url}/transport`}>Transport</Link>
+          </li>
+          <li>
+            <Link to={`${match.url}/home`}>Home</Link>
+          </li>
+          <li>
+            <Link to={`${match.url}/stuff`}>Stuff</Link>
+          </li>
+        </ul>
+        <Switch>
+          <Route path="/food">
+            <Food />
+          </Route>
+          <Route path="/transport">
+            <Transport />
+          </Route>
+          <Route path="/home">
+            <Home />
+          </Route>
+          <Route path="/stuff">
+            <Stuff />
+          </Route>
+        </Switch>
       </div>
-    );
-  }
+    </Router>
+  );
 }
-/*<form>
-          <input name="firstname" className="form-control">
-            Your firstname
-          </input>
-          <input name="firstname" className="form-control">
-            Your lastname
-          </input>
-        </form>*/

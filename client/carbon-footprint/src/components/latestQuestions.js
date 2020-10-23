@@ -1,6 +1,6 @@
 import React from "react";
 
-export default class App extends React.Component {
+export default class Questions extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -23,13 +23,18 @@ export default class App extends React.Component {
   }
 
   componentDidMount() {
-    this.fetchQuestionsByCategory(1, "food");
-    this.fetchOptionsByQuestionID(1, 1);
+    //grab the category and apply the 1st fetch method to it, and apply the 2nd fech method by looping through the options
+    this.fetchQuestionsByCategory("food");
+    this.fetchOptionsByQuestionID(1);
+    //const option = document.querySelector("label");
+    //console.log(option);
+    //option.forEach((e) => this.fetchOptionsByQuestionID(e));
+    //;
   }
 
-  fetchQuestionsByCategory = async (id, category) => {
+  fetchQuestionsByCategory = async (category) => {
     try {
-      await fetch("/questions/" + id + "/" + category)
+      await fetch("/category/" + category + "/questions/")
         .then((res) => {
           if (res.ok) {
             return res.json();
@@ -47,9 +52,9 @@ export default class App extends React.Component {
     }
   };
 
-  fetchOptionsByQuestionID = async (id, QuestionId) => {
+  fetchOptionsByQuestionID = async (QuestionId) => {
     try {
-      await fetch("/options/" + id + "/" + QuestionId)
+      await fetch("/questions/" + QuestionId + "/options/")
         .then((res) => {
           return res.json();
         })
@@ -88,35 +93,29 @@ export default class App extends React.Component {
           {questions.map((e) => (
             <li key={e.id} className="text-center">
               {e.Title}
+              {options.map((e) => (
+                <div className="form-check">
+                  <input
+                    onChange={() => this.addAnswersByOptionID()}
+                    className="form-check-input"
+                    type="radio"
+                    name="exampleRadios"
+                    id="exampleRadios1"
+                    value="option1"
+                    checked
+                  />
+                  <label
+                    key={e.QuestionId}
+                    className="form-check-label"
+                    for="exampleRadios1"
+                  >
+                    {e.OptionText}
+                  </label>
+                </div>
+              ))}
             </li>
           ))}
         </ol>
-        <div className="form-check">
-          <input
-            onChange={() => this.addAnswersByOptionID()}
-            className="form-check-input"
-            type="radio"
-            name="exampleRadios"
-            id="exampleRadios1"
-            value="option1"
-            checked
-          />
-          {options.map((e) => (
-            <label key={e.id} className="form-check-label" for="exampleRadios1">
-              {e.OptionText}
-            </label>
-          ))}
-        </div>
-        <div className="form-check">
-          <input
-            className="form-check-input"
-            type="radio"
-            name="exampleRadios"
-            id="exampleRadios2"
-            value="option2"
-          />
-          <label className="form-check-label" for="exampleRadios2"></label>
-        </div>
         <button
           onClick={() => this.addAnswersByOptionID()}
           className="btn btn-primary"
@@ -127,3 +126,5 @@ export default class App extends React.Component {
     );
   }
 }
+
+//))}

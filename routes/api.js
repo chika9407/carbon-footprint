@@ -37,7 +37,7 @@ function queryMaker(query, req, res) {
   }
 });*/
 
-router.get("/questions/:id/:category/", async (req, res) => {
+/*router.get("/questions/:id/:category/", async (req, res) => {
   try {
     var results = await db(
       `SELECT * FROM questions WHERE Category = "${req.params.category}" ;`
@@ -46,7 +46,19 @@ router.get("/questions/:id/:category/", async (req, res) => {
   } catch (err) {
     res.status(500).send(err);
   }
-});
+});*/
+
+//better way
+/*router.get("/category/:category/questions/", async (req, res) => {
+  try {
+    var results = await db(
+      `SELECT * FROM questions WHERE Category = "${req.params.category}" ;`
+    );
+    res.send(results.data);
+  } catch (err) {
+    res.status(500).send(err);
+  }
+});*/
 
 async function getOptions(req, res) {
   try {
@@ -63,13 +75,25 @@ router.get("/questions/", getQuestions);
 router.get("/questions/:id/", (req, res) =>
   queryMaker(`SELECT * FROM questions WHERE id = ${req.params.id};`)(req, res)
 );
+router.get("/category/:category/questions/", (req, res) =>
+  queryMaker(
+    `SELECT * FROM questions WHERE Category = "${req.params.category}" ;`
+  )(req, res)
+);
 router.get("/options/", getOptions);
 router.get("/options/:id", (req, res) =>
   queryMaker(`SELECT * FROM options WHERE id = ${req.params.id};`)(req, res)
 );
 
 //even if it requires an id (so long it exists even if not under this Question) it retrieves all the options for this QuestionID - so it works!
-router.get("/options/:id/:QuestionId", (req, res) =>
+/*router.get("/options/:id/:QuestionId", (req, res) =>
+  queryMaker(
+    `SELECT * FROM options WHERE QuestionId = ${req.params.QuestionId};`
+  )(req, res)
+);*/
+
+//better way
+router.get("/questions/:QuestionId/options", (req, res) =>
   queryMaker(
     `SELECT * FROM options WHERE QuestionId = ${req.params.QuestionId};`
   )(req, res)

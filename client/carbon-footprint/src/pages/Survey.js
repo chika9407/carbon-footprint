@@ -1,16 +1,20 @@
-import React, { useState } from "react";
-
-import Questions from "./Questions";
+import React, { useState, useEffect } from "react";
+import { Redirect } from "react-router-dom";
+//import Questions from "./Questions";
 
 export default function Survey() {
   const [firstname, setFirstName] = useState("");
   const [lastname, setLastName] = useState("");
+  const [toQuestions, setToQuestions] = useState(false);
   const [answers, setAnswers] = useState([]);
 
   const addAnswers = () => {
     setAnswers();
   };
 
+  useEffect(() => {
+    document.title = "Begin the Survey";
+  });
   //let match = useRouteMatch();
   return (
     <div className="container">
@@ -34,7 +38,13 @@ export default function Survey() {
           className="form-control mt-4"
           placeholder="your lastname"
         />
-        <button className="btn btn-primary mt-2">Start</button>
+        <button
+          onClick={() => setToQuestions(true)}
+          className="btn btn-primary mt-2"
+        >
+          Start
+        </button>
+        <div>{toQuestions ? <Redirect to="/survey/questions" /> : null}</div>
       </form>
     </div>
   );

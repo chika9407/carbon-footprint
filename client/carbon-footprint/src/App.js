@@ -4,9 +4,9 @@ import {
   Switch,
   Route,
   NavLink,
-  Link,
-  useParams,
-  useRouteMatch,
+  //Link,
+  //useParams,
+  //useRouteMatch,
 } from "react-router-dom";
 import Survey from "./pages/Survey";
 import Questions from "./pages/Questions";
@@ -35,7 +35,7 @@ export default function App() {
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/survey/" exact>
+                <NavLink to="/survey" exact>
                   Survey
                 </NavLink>
               </li>
@@ -44,7 +44,7 @@ export default function App() {
         </nav>
         <div>
           <Switch>
-            <Route exact path="/survey/:category">
+            <Route exact path="/survey/questions">
               <Questions />
             </Route>
             <Route exact path="/survey">

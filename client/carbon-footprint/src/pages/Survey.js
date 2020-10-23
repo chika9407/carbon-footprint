@@ -1,60 +1,41 @@
-import React from "react";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  NavLink,
-} from "react-router-dom";
-//import Questions from "./Questions.js";
+import React, { useState } from "react";
+
+import Questions from "./Questions";
 
 export default function Survey() {
-  /*const [firstname, setFirstName] = useState("");
+  const [firstname, setFirstName] = useState("");
   const [lastname, setLastName] = useState("");
-  const [answers, setAnswers] = useState([]);*/
+  const [answers, setAnswers] = useState([]);
+
+  const addAnswers = () => {
+    setAnswers();
+  };
 
   //let match = useRouteMatch();
   return (
-    <Router>
-      <div>
-        <nav className="navbar navbar-expand-lg navbar-light bg-light">
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-target="#navbarNavAltMarkup"
-            aria-controls="navbarNavAltMarkup"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span className="navbar-toggler-icon"></span>
-          </button>
-          <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <ul className="navbar-nav">
-              <li className="nav-item">
-                <NavLink to="/" exact>
-                  Main
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to="/survey" exact>
-                  Survey
-                </NavLink>
-              </li>
-            </ul>
-          </div>
-        </nav>
-        <Switch>
-          {/*<Route path="/survey/:category">
-            <Questions />
-  </Route>*/}
-          <Route path="/survey">
-            <Survey />
-          </Route>
-          <Route path="/">
-            <Survey />
-          </Route>
-          <div>Page not found</div>
-        </Switch>
-      </div>
-    </Router>
+    <div className="container">
+      <h4>Begin the Survey to find out what your carbon footprint is </h4>
+      <form className="my-2">
+        <h6> Your firstname</h6>
+        <input
+          type="text"
+          name="firstname"
+          value={firstname}
+          onChange={(event) => setFirstName(event.target.value)}
+          className="form-control my-4"
+          placeholder="your firstname"
+        />
+        <h6>Your lastname</h6>
+        <input
+          type="text"
+          name="lastname"
+          value={lastname}
+          onChange={(event) => setLastName(event.target.value)}
+          className="form-control mt-4"
+          placeholder="your lastname"
+        />
+        <button className="btn btn-primary mt-2">Start</button>
+      </form>
+    </div>
   );
 }

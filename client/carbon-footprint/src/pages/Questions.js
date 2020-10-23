@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 
 export default function Questions() {
   const [questions, setQuestions] = useState([]);
   const [options, setOptions] = useState([]);
+  const { category } = useParams();
   //const [answers, setAnswers] = useState([]);
   //const [category] = useState(["food", "transport", "home", "stuff"]);
 
-  const fetchQuestionsByCategory = (category) => {
+  /*const fetchQuestionsByCategory = (category) => {
     useEffect(async () => {
       const response = await fetch("/category/" + category + "/questions/");
       const data = await response.json();
-      setQuestions(data);
+      setQuestions(data.results);
       console.log({ questions });
     }, []);
     return { data };
@@ -24,7 +26,7 @@ export default function Questions() {
       //console.log(json);
       console.log({ options });
     }, []);
-  };
+  };*/
 
   //grab the category and apply the 1st fetch method to it, and apply the 2nd fech method by looping through the options
   //fetchQuestionsByCategory({ type });
@@ -39,9 +41,10 @@ export default function Questions() {
     this.setState({ ...answers, response });
     console.log(this.state.answers);
   }*/
+
   return (
     <div className="container">
-      This is category {category} profile
+      This is category profile
       <h3>Click Next to continue to the next question</h3>
       <ol>
         {questions.map((e) => (

@@ -33,7 +33,7 @@ export default function Questions() {
       const json = await response.json();
       setQuestions(json);
     }
-    fetchQuestionsByCategory(currentCategory);
+    if (!questions.length) fetchQuestionsByCategory(currentCategory);
   }, [questions]);
 
   const setNextCategory = () => {
@@ -43,22 +43,18 @@ export default function Questions() {
     }
   };
 
-  async function fetchOptionsByQuestionID(QuestionId) {
-    const response = await fetch("/questions/" + QuestionId + "/options/");
-    const json = await response.json();
-    setOptions(json);
-  }
-
-  fetchOptionsByQuestionID(1);
-
-  /*useEffect(() => {
-    fetchOptionsByQuestionID(QuestionId);
-  }, [options]);*/
-
-  //fetchOptionsByQuestionID(QuestionId);
+  useEffect(() => {
+    async function fetchOptions() {
+      const response = await fetch("/options/");
+      const json = await response.json();
+      setOptions(json);
+      console.log(options);
+    }
+    if (!options.length) fetchOptions();
+  }, [options]);
 
   const handleSelect = (id) => {
-    setAnswers({ ...answers, id });
+    setAnswers([...answers, id]);
   };
 
   //get Current Qs for further pagination
@@ -82,25 +78,29 @@ export default function Questions() {
           {questions.map((e) => (
             <li key={e.id} className="text-center">
               {e.Title}
-              {options.map((e) => (
-                <div className="form-check">
-                  <input
-                    onClick={(event) => handleSelect(event.target.id)}
-                    className="form-check-input"
-                    type="radio"
-                    name="answer"
-                    value={answers}
-                    id={e.id}
-                  />
-                  <label
-                    key={e.QuestionId}
-                    className="form-check-label"
-                    for="exampleRadios1"
-                  >
-                    {e.OptionText}
-                  </label>
-                </div>
-              ))}
+              {options.map(
+                (item) =>
+                  item.QuestionID === e.id && (
+                    <div className="form-check">
+                      <fieldset id={`group${e.id}`}>
+                        <input
+                          onClick={(event) => handleSelect(event.target.id)}
+                          className="form-check-input"
+                          type="radio"
+                          name={`group${e.id}`}
+                          value={answers}
+                          id={item.id}
+                        />
+                        <label
+                          key={item.QuestionId}
+                          className="form-check-label"
+                        >
+                          {item.OptionText}
+                        </label>
+                      </fieldset>
+                    </div>
+                  )
+              )}
               <div>
                 <p className="font-italic">
                   {" "}

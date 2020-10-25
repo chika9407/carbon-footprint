@@ -18,10 +18,6 @@ export default function Survey() {
     document.title = "Begin the Survey";
   });
 
-  /*const onSubmit = (data) => {
-    console.log(data);
-  };*/
-
   return (
     <div className="container">
       <h4>Begin the Survey to find out what your carbon footprint is </h4>

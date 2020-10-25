@@ -14,7 +14,6 @@ import Questions from "./pages/Questions";
 export default function App() {
   return (
     <div className="App">
-      This is the Main Page
       <Router>
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
           <button
@@ -64,7 +63,7 @@ export default function App() {
 function Home() {
   return (
     <div>
-      <h2>Home</h2>
+      <h2>This is the Main Page</h2>
     </div>
   );
 }

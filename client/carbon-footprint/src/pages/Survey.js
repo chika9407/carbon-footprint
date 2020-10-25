@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Redirect } from "react-router-dom";
 //import Questions from "./Questions";
+//import useForm from "react-hook-form";
 
 export default function Survey() {
   const [firstname, setFirstName] = useState("");
   const [lastname, setLastName] = useState("");
   const [toQuestions, setToQuestions] = useState(false);
   const [answers, setAnswers] = useState([]);
+  //const [handleSubmit, register, errors] = useForm();
 
   const addAnswers = () => {
     setAnswers();
@@ -15,7 +17,11 @@ export default function Survey() {
   useEffect(() => {
     document.title = "Begin the Survey";
   });
-  //let match = useRouteMatch();
+
+  /*const onSubmit = (data) => {
+    console.log(data);
+  };*/
+
   return (
     <div className="container">
       <h4>Begin the Survey to find out what your carbon footprint is </h4>

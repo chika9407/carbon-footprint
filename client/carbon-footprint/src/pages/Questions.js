@@ -9,55 +9,75 @@ import {
   useParams,
   useRouteMatch,
 } from "react-router-dom";
+//import Pagination from "./Pagination";
 
 export default function Questions() {
   const [questions, setQuestions] = useState([]);
   const [options, setOptions] = useState([]);
-  //let category = useParams();
-  let { path, url } = useRouteMatch();
   const [answers, setAnswers] = useState([]);
+  const [categories] = useState(["food", "transport", "home", "stuff"]);
+  const [currentCategory, setCurrentCategory] = useState(categories[0]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [questionsPerPage] = useState(24);
+
+  let { path, url } = useRouteMatch();
   const [toNext, setToNext] = useState(false);
-  //const [category] = useState(["food", "transport", "home", "stuff"]);
 
   useEffect(() => {
     document.title = "Questionnaire";
   });
+
   useEffect(() => {
     async function fetchQuestionsByCategory(category) {
       const response = await fetch("/category/" + category + "/questions/");
       const json = await response.json();
       setQuestions(json);
     }
-    fetchQuestionsByCategory("food");
+    fetchQuestionsByCategory(currentCategory);
   }, [questions]);
 
-  useEffect(() => {
-    async function fetchOptionsByQuestionID(QuestionId) {
-      const response = await fetch("/questions/" + QuestionId + "/options/");
-      const json = await response.json();
-      setOptions(json);
+  const setNextCategory = () => {
+    let i = categories.indexOf(currentCategory);
+    if (i >= 0 && i < categories.length) {
+      setCurrentCategory(categories[i + 1]);
     }
-    fetchOptionsByQuestionID(1);
-  }, [options]);
+  };
 
-  //grab the category and apply the 1st fetch method to it, and apply the 2nd fech method by looping through the options
-  //fetchQuestionsByCategory({ type });
-  //fetchOptionsByQuestionID(1);
-  //const option = document.querySelector("label");
-  //console.log(option);
-  //option.forEach((e) => this.fetchOptionsByQuestionID(e));
-  //;
-  //});
+  async function fetchOptionsByQuestionID(QuestionId) {
+    const response = await fetch("/questions/" + QuestionId + "/options/");
+    const json = await response.json();
+    setOptions(json);
+  }
 
-  /*addAnswersByOptionID(response) {
-    this.setState({ ...answers, response });
-    console.log(this.state.answers);
-  }*/
+  fetchOptionsByQuestionID(1);
+
+  /*useEffect(() => {
+    fetchOptionsByQuestionID(QuestionId);
+  }, [options]);*/
+
+  //fetchOptionsByQuestionID(QuestionId);
+
+  const handleSelect = (id) => {
+    setAnswers({ ...answers, id });
+  };
+
+  //get Current Qs for further pagination
+
+  const indexOfLastQuestion = currentPage * questionsPerPage;
+  const indexOfFirstQuestion = indexOfLastQuestion - questionsPerPage;
+  const currentQuestions = questions.slice(
+    indexOfFirstQuestion,
+    indexOfLastQuestion
+  );
+
+  /*const paginate = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };*/
 
   return (
     <div className="container">
-      <h3>Click Next to continue to the next question</h3>
       <form>
+        <h6 className="text-uppercase text-center">{currentCategory}</h6>
         <ol>
           {questions.map((e) => (
             <li key={e.id} className="text-center">
@@ -65,13 +85,12 @@ export default function Questions() {
               {options.map((e) => (
                 <div className="form-check">
                   <input
-                    onChange={(event) => setAnswers(event.target.value)}
+                    onClick={(event) => handleSelect(event.target.id)}
                     className="form-check-input"
                     type="radio"
-                    name="exampleRadios"
-                    id="exampleRadios1"
-                    value={options}
-                    checked
+                    name="answer"
+                    value={answers}
+                    id={e.id}
                   />
                   <label
                     key={e.QuestionId}
@@ -82,16 +101,37 @@ export default function Questions() {
                   </label>
                 </div>
               ))}
+              <div>
+                <p className="font-italic">
+                  {" "}
+                  <span className="font-weight-bold">Did you know? </span>
+                  {e.Description}{" "}
+                </p>
+              </div>
             </li>
           ))}
         </ol>
-        <button onClick={() => setToNext(true)} className="btn btn-primary">
-          Next
-        </button>
-        <div>
-          {toNext ? <Redirect to="/survey/questions/transport" /> : null}
-        </div>
       </form>
+      <h6>Click Next to continue to the next question</h6>
+      <button onClick={() => setNextCategory()} className="btn btn-primary">
+        Next
+      </button>
+      <div>{toNext ? <Redirect to="/survey/questions/success" /> : null}</div>
+      {/*<Pagination
+        questionsPerPage={questionsPerPage}
+        totalQuestions={questions.length}
+        paginate={paginate}
+      />*/}
+      <div className="progress">
+        <div
+          className="progress-bar bg-success my-4"
+          role="progressbar"
+          //style={width = 25%}
+          aria-valuenow="25"
+          aria-valuemin="0"
+          aria-valuemax="100"
+        ></div>
+      </div>
       <div>
         <Router>
           <div>
@@ -114,7 +154,11 @@ function Category() {
   let { category } = useParams();
   return (
     <div>
-      <h3>{category}</h3>
+      <h3>Here's the {category}</h3>
     </div>
   );
+}
+
+{
+  /*<div>{questions && fetchOptionsByQuestionID(e.id)}</div>*/
 }

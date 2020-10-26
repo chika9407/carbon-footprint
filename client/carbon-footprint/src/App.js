@@ -1,17 +1,22 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   BrowserRouter as Router,
   Switch,
   Route,
   NavLink,
-  //Link,
-  //useParams,
-  //useRouteMatch,
 } from "react-router-dom";
 import Survey from "./pages/Survey";
 import Questions from "./pages/Questions";
+import Card from "./pages/Card";
+import "./App.css";
 
 export default function App() {
+  /*const [questions, setQuestions] = useState([]);
+  const [options, setOptions] = useState([]);
+  const [answers, setAnswers] = useState([]);
+  const [firstname, setFirstName] = useState("");
+  const [lastname, setLastName] = useState("");*/
+
   return (
     <div className="App">
       <Router>
@@ -27,15 +32,20 @@ export default function App() {
             <span className="navbar-toggler-icon"></span>
           </button>
           <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <ul className="navbar-nav">
-              <li className="nav-item">
+            <ul className="navbar-nav ">
+              <li className="nav-item px-2">
                 <NavLink to="/" exact>
-                  Main
+                  Home
                 </NavLink>
               </li>
-              <li>
+              <li className="nav-item px-2">
                 <NavLink to="/survey" exact>
                   Survey
+                </NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink to="/survey/questions" exact>
+                  Questions
                 </NavLink>
               </li>
             </ul>
@@ -62,8 +72,8 @@ export default function App() {
 
 function Home() {
   return (
-    <div>
-      <h2>This is the Main Page</h2>
+    <div className="container text-center mt-4">
+      <Card></Card>
     </div>
   );
 }

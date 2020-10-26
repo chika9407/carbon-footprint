@@ -16,3 +16,4 @@
 15. send data to DB?
 16. fetch calculations from the BrighterPlanet API
 17. provide a user with the results once all sections are done
+18. after clicking Next after Stuff user should see a thank you page with results

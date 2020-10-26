@@ -1,0 +1,27 @@
+body {
+  background-color: #34d0eb;
+}
+
+#title {
+  font-family: "Raleway", sans-serif;
+}
+
+.navbar-nav {
+  border-bottom: 1px solid transparent;
+}
+
+.nav-item {
+  text-decoration: none;
+}
+
+.nav-link {
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 16px;
+  text-align: center;
+  color: #fff;
+}
+.nav-link:hover {
+  color: #c7b2c4;
+  text-decoration: underline;
+}

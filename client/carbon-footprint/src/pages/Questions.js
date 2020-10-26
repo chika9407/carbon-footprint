@@ -4,8 +4,6 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  //NavLink,
-  //Link,
   useParams,
   useRouteMatch,
 } from "react-router-dom";
@@ -18,7 +16,7 @@ export default function Questions() {
   const [categories] = useState(["food", "transport", "home", "stuff"]);
   const [currentCategory, setCurrentCategory] = useState(categories[0]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [questionsPerPage] = useState(24);
+  const [questionsPerPage] = useState(10);
 
   let { path, url } = useRouteMatch();
   const [toNext, setToNext] = useState(false);
@@ -33,7 +31,7 @@ export default function Questions() {
       const json = await response.json();
       setQuestions(json);
     }
-    if (!questions.length) fetchQuestionsByCategory(currentCategory);
+    fetchQuestionsByCategory(currentCategory);
   }, [questions]);
 
   const setNextCategory = () => {
@@ -50,7 +48,7 @@ export default function Questions() {
       setOptions(json);
       console.log(options);
     }
-    if (!options.length) fetchOptions();
+    fetchOptions();
   }, [options]);
 
   const handleSelect = (id) => {
@@ -73,10 +71,10 @@ export default function Questions() {
   return (
     <div className="container">
       <form>
-        <h6 className="text-uppercase text-center">{currentCategory}</h6>
+        <h6 className="text-uppercase text-center mt-2">{currentCategory}</h6>
         <ol>
           {questions.map((e) => (
-            <li key={e.id} className="text-center">
+            <li key={e.id}>
               {e.Title}
               {options.map(
                 (item) =>
@@ -122,16 +120,6 @@ export default function Questions() {
         totalQuestions={questions.length}
         paginate={paginate}
       />*/}
-      <div className="progress">
-        <div
-          className="progress-bar bg-success my-4"
-          role="progressbar"
-          //style={width = 25%}
-          aria-valuenow="25"
-          aria-valuemin="0"
-          aria-valuemax="100"
-        ></div>
-      </div>
       <div>
         <Router>
           <div>

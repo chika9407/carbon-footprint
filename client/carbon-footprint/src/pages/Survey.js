@@ -1,26 +1,21 @@
 import React, { useState, useEffect } from "react";
 import { Redirect } from "react-router-dom";
 //import Questions from "./Questions";
-//import useForm from "react-hook-form";
 
 export default function Survey() {
   const [firstname, setFirstName] = useState("");
   const [lastname, setLastName] = useState("");
   const [toQuestions, setToQuestions] = useState(false);
-  const [answers, setAnswers] = useState([]);
-  //const [handleSubmit, register, errors] = useForm();
-
-  const addAnswers = () => {
-    setAnswers();
-  };
 
   useEffect(() => {
-    document.title = "Begin the Survey";
+    document.title = "Survey";
   });
 
   return (
     <div className="container">
-      <h4>Begin the Survey to find out what your carbon footprint is </h4>
+      <h4 className="mt-2 text-center">
+        Begin the Survey to find out what your carbon footprint is{" "}
+      </h4>
       <form className="my-2">
         <h6> Your firstname</h6>
         <input

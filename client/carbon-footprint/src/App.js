@@ -49,11 +49,14 @@ export default function App() {
         </nav>
         <div>
           <Switch>
-            <Route
+            {/* <Route
               path={`/survey/questions/:category`}
               children={<Category />}
-            ></Route>
-            <Route exact path="/survey/questions">
+            ></Route> */}
+            <Route exact path="/survey/questions/success">
+              <Success />
+            </Route>
+            <Route exact path="/survey/questions/:category?">
               <Questions />
             </Route>
             <Route exact path="/survey">
@@ -62,9 +65,7 @@ export default function App() {
             <Route exact path="/">
               <Home />
             </Route>
-            <Route exact path="/survey/questions/success">
-              <Success />
-            </Route>
+
             <div>Page not found</div>
           </Switch>
         </div>

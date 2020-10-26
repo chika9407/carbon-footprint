@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Redirect } from "react-router-dom";
+import { Redirect, useParams, useHistory } from "react-router-dom";
 //import Pagination from "./Pagination";
 
 export default function Questions() {
@@ -8,14 +8,19 @@ export default function Questions() {
   const [answers, setAnswers] = useState([]);
   //let { category } = useParams();
   const [categories] = useState(["food", "transport", "home", "stuff"]);
-  const [currentCategory, setCurrentCategory] = useState(categories[0]);
+  // const [currentCategory, setCurrentCategory] = useState(categories[0]);
+  let { category } = useParams();
+  category = category || "food";
+
+  const history = useHistory();
+
   const [currentPage, setCurrentPage] = useState(1);
   const [questionsPerPage] = useState(10);
 
   const [toNext, setToNext] = useState(false);
 
   useEffect(() => {
-    document.title = "Questionnaire";
+    document.title = `${category} - Questionnaire`;
   });
 
   useEffect(() => {
@@ -24,15 +29,15 @@ export default function Questions() {
       const json = await response.json();
       setQuestions(json);
     }
-    fetchQuestionsByCategory(currentCategory);
-  }, []);
-
-  console.log(questions);
+    fetchQuestionsByCategory(category);
+  }, [category]);
 
   const setNextCategory = () => {
-    let i = categories.indexOf(currentCategory);
+    let i = categories.indexOf(category);
+    console.log("setNextCategory", i);
     if (i >= 0 && i < categories.length) {
-      setCurrentCategory(categories[i + 1]);
+      // setCurrentCategory(categories[i + 1]);
+      history.push(`/survey/questions/${categories[i + 1]}`);
     }
   };
 
@@ -48,6 +53,7 @@ export default function Questions() {
 
   const handleSelect = (id) => {
     setAnswers([...answers, id]);
+    console.log([...answers, id]);
   };
 
   //get Current Qs for further pagination
@@ -66,7 +72,7 @@ export default function Questions() {
   return (
     <div className="container">
       <form>
-        <h6 className="text-uppercase text-center mt-2">{currentCategory}</h6>
+        <h6 className="text-uppercase text-center mt-2">{category}</h6>
         <ol>
           {questions.map((e) => (
             <li key={e.id}>

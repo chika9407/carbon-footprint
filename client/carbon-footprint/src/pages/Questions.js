@@ -1,21 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { Redirect, useParams, useHistory } from "react-router-dom";
-//import Pagination from "./Pagination";
 
 export default function Questions() {
   const [questions, setQuestions] = useState([]);
   const [options, setOptions] = useState([]);
-  const [answers, setAnswers] = useState([]);
-  //let { category } = useParams();
+  const [answers, setAnswers] = useState({});
   const [categories] = useState(["food", "transport", "home", "stuff"]);
-  // const [currentCategory, setCurrentCategory] = useState(categories[0]);
   let { category } = useParams();
   category = category || "food";
 
   const history = useHistory();
-
-  const [currentPage, setCurrentPage] = useState(1);
-  const [questionsPerPage] = useState(10);
 
   const [toNext, setToNext] = useState(false);
 
@@ -36,7 +30,6 @@ export default function Questions() {
     let i = categories.indexOf(category);
     console.log("setNextCategory", i);
     if (i >= 0 && i < categories.length) {
-      // setCurrentCategory(categories[i + 1]);
       history.push(`/survey/questions/${categories[i + 1]}`);
     }
   };
@@ -51,23 +44,10 @@ export default function Questions() {
     fetchOptions();
   }, []);
 
-  const handleSelect = (id) => {
-    setAnswers([...answers, id]);
-    console.log([...answers, id]);
+  const handleSelect = ({ key }: value) => {
+    setAnswers({ ...answers, value });
+    console.log({ ...answers, value });
   };
-
-  //get Current Qs for further pagination
-
-  const indexOfLastQuestion = currentPage * questionsPerPage;
-  const indexOfFirstQuestion = indexOfLastQuestion - questionsPerPage;
-  const currentQuestions = questions.slice(
-    indexOfFirstQuestion,
-    indexOfLastQuestion
-  );
-
-  /*const paginate = (pageNumber) => {
-    setCurrentPage(pageNumber);
-  };*/
 
   return (
     <div className="container">
@@ -111,16 +91,10 @@ export default function Questions() {
           ))}
         </ol>
       </form>
-      <h6>Click Next to continue to the next question</h6>
       <button onClick={() => setNextCategory()} className="btn btn-primary">
         Next
       </button>
       <div>{toNext ? <Redirect to="/survey/questions/success" /> : null}</div>
-      {/*<Pagination
-        questionsPerPage={questionsPerPage}
-        totalQuestions={questions.length}
-        paginate={paginate}
-      />*/}
     </div>
   );
 }

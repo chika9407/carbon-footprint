@@ -25,6 +25,7 @@ export default function Survey() {
           onChange={(event) => setFirstName(event.target.value)}
           className="form-control my-4"
           placeholder="your firstname"
+          required="true"
         />
         <h6>Your lastname</h6>
         <input
@@ -34,6 +35,7 @@ export default function Survey() {
           onChange={(event) => setLastName(event.target.value)}
           className="form-control mt-4"
           placeholder="your lastname"
+          required="true"
         />
         <button
           onClick={() => setToQuestions(true)}

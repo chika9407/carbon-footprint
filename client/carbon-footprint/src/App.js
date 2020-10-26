@@ -8,7 +8,6 @@ import {
 import Home from "./pages/Home";
 import Survey from "./pages/Survey";
 import Questions from "./pages/Questions";
-import Category from "./pages/Category";
 import Success from "./pages/Success";
 import "./App.css";
 
@@ -36,23 +35,25 @@ export default function App() {
           <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
             <ul className="navbar-nav ">
               <li className="nav-item px-2">
-                <NavLink to="/">Home</NavLink>
+                <NavLink to="/" className="nav-link">
+                  Home
+                </NavLink>
               </li>
               <li className="nav-item px-2">
-                <NavLink to="/survey">Survey</NavLink>
+                <NavLink to="/survey" className="nav-link">
+                  Survey
+                </NavLink>
               </li>
               <li className="nav-item">
-                <NavLink to="/survey/questions">Questions</NavLink>
+                <NavLink to="/survey/questions" className="nav-link">
+                  Questions
+                </NavLink>
               </li>
             </ul>
           </div>
         </nav>
         <div>
           <Switch>
-            {/* <Route
-              path={`/survey/questions/:category`}
-              children={<Category />}
-            ></Route> */}
             <Route exact path="/survey/questions/success">
               <Success />
             </Route>

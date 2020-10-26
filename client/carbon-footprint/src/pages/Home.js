@@ -2,7 +2,9 @@ import React from "react";
 export default function Card() {
   return (
     <div className="container ">
-      <h1 id="title">Find Out What Your Carbon Footprint Is</h1>
+      <h1 id="title" className="text-center">
+        Find Out What Your Carbon Footprint Is
+      </h1>
       <p className=" mt-4 font-weight-light text-center">
         The first step towards mitigating global warming and climate change
         crisis is for us as humanbeings to understand whats's our individual

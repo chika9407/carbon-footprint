@@ -5,9 +5,11 @@ import {
   Route,
   NavLink,
 } from "react-router-dom";
+import Home from "./pages/Home";
 import Survey from "./pages/Survey";
 import Questions from "./pages/Questions";
-import Card from "./pages/Card";
+import Category from "./pages/Category";
+import Success from "./pages/Success";
 import "./App.css";
 
 export default function App() {
@@ -34,25 +36,23 @@ export default function App() {
           <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
             <ul className="navbar-nav ">
               <li className="nav-item px-2">
-                <NavLink to="/" exact>
-                  Home
-                </NavLink>
+                <NavLink to="/">Home</NavLink>
               </li>
               <li className="nav-item px-2">
-                <NavLink to="/survey" exact>
-                  Survey
-                </NavLink>
+                <NavLink to="/survey">Survey</NavLink>
               </li>
               <li className="nav-item">
-                <NavLink to="/survey/questions" exact>
-                  Questions
-                </NavLink>
+                <NavLink to="/survey/questions">Questions</NavLink>
               </li>
             </ul>
           </div>
         </nav>
         <div>
           <Switch>
+            <Route
+              path={`/survey/questions/:category`}
+              children={<Category />}
+            ></Route>
             <Route exact path="/survey/questions">
               <Questions />
             </Route>
@@ -62,18 +62,13 @@ export default function App() {
             <Route exact path="/">
               <Home />
             </Route>
+            <Route exact path="/survey/questions/success">
+              <Success />
+            </Route>
             <div>Page not found</div>
           </Switch>
         </div>
       </Router>
-    </div>
-  );
-}
-
-function Home() {
-  return (
-    <div className="container text-center mt-4">
-      <Card></Card>
     </div>
   );
 }

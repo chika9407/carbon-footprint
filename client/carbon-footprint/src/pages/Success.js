@@ -1,7 +1,14 @@
-import React, { Component } from "react";
+import React from "react";
 
-export default class Success extends Component {
-  render() {
-    return <div></div>;
-  }
+export default function Success() {
+  return (
+    <div className="jumbotron jumbotron-fluid">
+      <div className="container text-center">
+        <h1 className="display-4">
+          Thank you for filling out this Questionnaire!
+        </h1>
+        <p className="lead">Your results will be calculated shortly</p>
+      </div>
+    </div>
+  );
 }

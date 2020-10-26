@@ -1,24 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { Redirect } from "react-router-dom";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  useParams,
-  useRouteMatch,
-} from "react-router-dom";
 //import Pagination from "./Pagination";
 
 export default function Questions() {
   const [questions, setQuestions] = useState([]);
   const [options, setOptions] = useState([]);
   const [answers, setAnswers] = useState([]);
+  //let { category } = useParams();
   const [categories] = useState(["food", "transport", "home", "stuff"]);
   const [currentCategory, setCurrentCategory] = useState(categories[0]);
   const [currentPage, setCurrentPage] = useState(1);
   const [questionsPerPage] = useState(10);
 
-  let { path, url } = useRouteMatch();
   const [toNext, setToNext] = useState(false);
 
   useEffect(() => {
@@ -32,7 +25,9 @@ export default function Questions() {
       setQuestions(json);
     }
     fetchQuestionsByCategory(currentCategory);
-  }, [questions]);
+  }, []);
+
+  console.log(questions);
 
   const setNextCategory = () => {
     let i = categories.indexOf(currentCategory);
@@ -49,7 +44,7 @@ export default function Questions() {
       console.log(options);
     }
     fetchOptions();
-  }, [options]);
+  }, []);
 
   const handleSelect = (id) => {
     setAnswers([...answers, id]);
@@ -120,33 +115,6 @@ export default function Questions() {
         totalQuestions={questions.length}
         paginate={paginate}
       />*/}
-      <div>
-        <Router>
-          <div>
-            <Switch>
-              <Route exact path="/survey/questions/:category">
-                <Category />
-              </Route>
-              <Route exact path={`${path}/:category`}>
-                <Category />
-              </Route>
-            </Switch>
-          </div>
-        </Router>
-      </div>
     </div>
   );
-}
-
-function Category() {
-  let { category } = useParams();
-  return (
-    <div>
-      <h3>Here's the {category}</h3>
-    </div>
-  );
-}
-
-{
-  /*<div>{questions && fetchOptionsByQuestionID(e.id)}</div>*/
 }

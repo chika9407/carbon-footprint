@@ -204,6 +204,8 @@ INSERT INTO options
     (id, OptionText, QuestionId)
 VALUES
     (50, "4+", 11);
+INSERT INTO options
+    (id, OptionText, QuestionId)
 VALUES
     (51, "1", 12);
 INSERT INTO options
@@ -389,20 +391,20 @@ VALUES
 INSERT INTO options
     (id, OptionText, QuestionId)
 VALUES
-    (97, "Food", 23);
+    (97, "Food", 24);
 INSERT INTO options
     (id, OptionText, QuestionId)
 VALUES
-    (98, "Tin cans", 23);
+    (98, "Tin cans", 24);
 INSERT INTO options
     (id, OptionText, QuestionId)
 VALUES
-    (99, "Glass", 23);
+    (99, "Glass", 24);
 INSERT INTO options
     (id, OptionText, QuestionId)
 VALUES
-    (100, "Paper", 23);
+    (100, "Paper", 24);
 INSERT INTO options
     (id, OptionText, QuestionId)
 VALUES
-    (101, "Plastic", 23);
+    (101, "Plastic", 24);

@@ -35,17 +35,17 @@ export default function App() {
           <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
             <ul className="navbar-nav ">
               <li className="nav-item px-2">
-                <NavLink to="/" className="nav-link">
+                <NavLink className="nav-link" to="/" exact>
                   Home
                 </NavLink>
               </li>
               <li className="nav-item px-2">
-                <NavLink to="/survey" className="nav-link">
+                <NavLink className="nav-link" to="/survey" exact>
                   Survey
                 </NavLink>
               </li>
-              <li className="nav-item">
-                <NavLink to="/survey/questions" className="nav-link">
+              <li className="nav-item px-2">
+                <NavLink className="nav-link" to="/survey/questions" exact>
                   Questions
                 </NavLink>
               </li>

@@ -3,6 +3,7 @@ import { Redirect } from "react-router-dom";
 //import Questions from "./Questions";
 
 export default function Survey() {
+  //const [userInfo, setUserInfo] = useState({ firstname: "", lastname: "" });
   const [firstname, setFirstName] = useState("");
   const [lastname, setLastName] = useState("");
   const [toQuestions, setToQuestions] = useState(false);
@@ -10,6 +11,18 @@ export default function Survey() {
   useEffect(() => {
     document.title = "Survey";
   });
+
+  {
+    /*const handleChange = (event) => {
+    let value = event.target.value;
+    let name = event.target.name;
+    setUserInfo({ [name]: value });
+    //console.log(firstname);
+    //console.log(lastname);
+  };*/
+  }
+
+  //setLastName({ [name]: value });
 
   return (
     <div className="container">

@@ -7,7 +7,7 @@ export default function Questions() {
   const [answers, setAnswers] = useState({});
   const [categories] = useState(["food", "transport", "home", "stuff"]);
   let { category } = useParams();
-  category = category || "food";
+  category = category || categories[0];
 
   const history = useHistory();
 
@@ -32,6 +32,7 @@ export default function Questions() {
     if (i >= 0 && i < categories.length) {
       history.push(`/survey/questions/${categories[i + 1]}`);
     }
+    if (i > 2) setToNext(true);
   };
 
   useEffect(() => {
@@ -44,9 +45,11 @@ export default function Questions() {
     fetchOptions();
   }, []);
 
-  const handleSelect = ({ key }: value) => {
-    setAnswers({ ...answers, value });
-    console.log({ ...answers, value });
+  const handleSelect = (event) => {
+    let id = event.target.id;
+    let name = event.target.name;
+    setAnswers({ ...answers, [name]: id });
+    console.log(answers);
   };
 
   return (
@@ -63,7 +66,7 @@ export default function Questions() {
                     <div className="form-check">
                       <fieldset id={`group${e.id}`}>
                         <input
-                          onClick={(event) => handleSelect(event.target.id)}
+                          onClick={(event) => handleSelect(event)}
                           className="form-check-input"
                           type="radio"
                           name={`group${e.id}`}

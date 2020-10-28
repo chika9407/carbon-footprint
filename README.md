@@ -32,3 +32,20 @@ cd client and run yarn start to start client server in development mode with hot
 Client is configured so all API calls will be proxied to port 5000 for a smoother development experience. Yay!
 You can test your client app in http://localhost:3000
 You can test your API in http://localhost:5000/api
+
+### Database Prep
+
+Create `.env` file in project directory and add
+
+```
+DB_NAME=questions
+DB_PASS=YOUR_PASSWORD
+```
+
+(replace `YOUR_PASSWORD` with your actual password)
+
+Alternatively, you can rename the provided `.env.example` file to `.env`.
+
+Type `mysql -u root -p` to access the MySQL CLI using your password.
+
+In the MySQL CLI, type `create database questions;` to create a database in MySQL.

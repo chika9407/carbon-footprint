@@ -44,8 +44,14 @@ DB_PASS=YOUR_PASSWORD
 
 (replace `YOUR_PASSWORD` with your actual password)
 
-Alternatively, you can rename the provided `.env.example` file to `.env`.
-
 Type `mysql -u root -p` to access the MySQL CLI using your password.
 
 In the MySQL CLI, type `create database questions;` to create a database in MySQL.
+
+### Migration
+
+Type: npm run migrate in the root folder
+then type: npm run questions
+then type: npm run options
+
+My seed file is broken down into 2 so that's why it's separate commands for each of the seed files
